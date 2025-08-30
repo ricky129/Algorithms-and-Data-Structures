@@ -72,7 +72,7 @@ public class Dictionary<Key extends Comparable<Key>, V> {
     // Θ(n)
     public void insert(Key k, V data) {
         if (size >= arr.length) {
-            throw new IllegalStateException("Array capacity exceeded");
+            resize();
         }
 
         int i = binSearch(k);

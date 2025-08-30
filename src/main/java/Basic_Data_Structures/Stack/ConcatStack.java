@@ -2,10 +2,10 @@ package Basic_Data_Structures.Stack;
 
 import Basic_Data_Structures.Lists.LinkedList;
 
-public class Stack {
+public class ConcatStack {
     private LinkedList stack;
 
-    public Stack(){
+    public ConcatStack(){
         this.stack = new LinkedList();
     }
 

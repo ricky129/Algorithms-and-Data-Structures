@@ -1,5 +1,8 @@
 package Basic_Data_Structures.Queue;
 
+import Basic_Data_Structures.Lists.Node;
+import Basic_Data_Structures.Trees.Tree;
+
 public class Queue {
     private int size, head, tail, buf[];
 
@@ -21,6 +24,10 @@ public class Queue {
         this.buf[this.tail] = x;
         this.tail = (this.tail + 1 )%this.buf.length;
         this.size++;
+    }
+
+    public void enqueue(Queue Q, Tree T, Node root){
+        
     }
 
     // Θ(1)

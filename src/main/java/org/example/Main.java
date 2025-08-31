@@ -1,11 +1,7 @@
 package org.example;
 
-import Basic_Data_Structures.Lists.ComplementList;
-import Basic_Data_Structures.Lists.LinkedList;
-import Basic_Data_Structures.Stack.DynamicStack;
-import Basic_Data_Structures.Stack.StaticStack;
-
-import java.util.Stack;
+import Basic_Data_Structures.Lists.Node;
+import Basic_Data_Structures.Trees.BinarySearchTree;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -70,18 +66,50 @@ public class Main {
 //        System.out.println("Trying to push the element 8 beyond the static stack's limit:");
 //        S1.push(8);
 //        S1.printStack();
-        // ----- DYNAMIC STACK -----
-        DynamicStack D1 = new DynamicStack(10);
-        D1.fillStack();
-        D1.printStack();
-        System.out.println("Running dynamic pop: " + D1.pop());
-        D1.printStack();
-        System.out.println("Running dynamic push, adding 7.");
-        D1.push(7);
-        D1.printStack();
 
-        System.out.println("Trying to push the element 8 beyond the dynamic stack's limit:");
-        D1.push(8);
-        D1.printStack();
+        // ----- DYNAMIC STACK -----
+//        DynamicStack D1 = new DynamicStack(10);
+//        D1.fillStack();
+//        D1.printStack();
+//        System.out.println("Running dynamic pop: " + D1.pop());
+//        D1.printStack();
+//        System.out.println("Running dynamic push, adding 7.");
+//        D1.push(7);
+//        D1.printStack();
+//
+//        System.out.println("Trying to push the element 8 beyond the dynamic stack's limit:");
+//        D1.push(8);
+//        D1.printStack();
+
+        // ----- QUEUE -----
+//        myQueue<Integer> Q1 = new myQueue<>(10);
+//        Integer elements[] = {1, 2, 3, 4, 5};
+//        Q1.fillQueue(elements);
+//        Q1.printQueue();
+//        System.out.println("Running the first dequeue(): " + Q1.dequeue());
+//        Q1.printQueue();
+//        System.out.println("Enqueueing the element 7.");
+//        Q1.enqueue(7);
+//        Q1.printQueue();
+
+        // ----- TREES -----
+//        Node N1 = new Node(1);
+//        Tree T1 = new Tree();
+//        T1.fillTree(N1);
+//        System.out.println("The number of nodes is: " + T1.countnodes(N1));
+
+        BinarySearchTree BST1 = new BinarySearchTree();
+        Node N1 = new Node(1);
+        BST1.fillTree(N1);
+        System.out.println("Printing BST in-order:");
+        BST1.printTree();
+
+        System.out.println("\nSearching for key 4:");
+        Node found = BST1.search(4);
+        System.out.println(found != null ? "Found node: " + found.data : "Key not found");
+
+        System.out.println("\nInserting key 7:");
+        BST1.insert(7);
+        BST1.printTree();
     }
 }

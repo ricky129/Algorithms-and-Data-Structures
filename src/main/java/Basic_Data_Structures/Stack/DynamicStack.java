@@ -56,7 +56,7 @@ public class DynamicStack {
     }
 
     public void printStack() {
-        System.out.print("DynamicStack: ");
+        System.out.print("DynamicStack:     ");
         for (int i = 0; i < this.size; i++)
             System.out.print(this.stack[i] + " ");
         System.out.println();

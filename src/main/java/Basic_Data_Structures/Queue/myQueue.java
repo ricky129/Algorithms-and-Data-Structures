@@ -1,48 +1,103 @@
 package Basic_Data_Structures.Queue;
 
-import Basic_Data_Structures.Lists.Node;
-import Basic_Data_Structures.Trees.Tree;
+public class myQueue<T> {
+    private Object[] buf;
+    private int size, head, tail, capacity;
 
-public class Queue {
-    private int size, head, tail, buf[];
-
-    public Queue(int initialSize) {
-        if (initialSize < 0)
+    public myQueue(int capacity) {
+        if (capacity < 0)
             throw new IllegalArgumentException("Initial size must be positive");
-        this.buf = new int[initialSize];
+        this.buf = new Object[capacity];
+        this.capacity = capacity;
         this.size = 0;
         this.head = 0;
         this.tail = 0;
     }
 
     // Θ(1)
-    public void enqueue(int x){
-        if (this.size == this.buf.length) {
+    public void enqueue(Object x){
+        if (this.size == this.capacity) {
             System.err.println("Error: Queue Overflow");
             return;
         }
         this.buf[this.tail] = x;
-        this.tail = (this.tail + 1 )%this.buf.length;
+        this.tail = (this.tail + 1)%this.capacity;
         this.size++;
     }
 
-    public void enqueue(Queue Q, Tree T, Node root){
-        
-    }
-
     // Θ(1)
-    public int dequeue(){
+    public T dequeue(){
         if (this.size == 0) {
             System.err.println("Error: Queue Underflow");
-            return -1;
+            return null;
         }
-        int x = this.buf[this.head];
-        this.head = (this.head+ 1 )%this.buf.length;
+        T x = (T)this.buf[this.head];
+        this.buf[this.head] = null;
+        this.head = (this.head + 1)%this.capacity;
         this.size--;
         return x;
     }
 
+    public void fillQueue(T[] elements){
+        for (int i = 0; i < elements.length; i++)
+            enqueue(elements[i]);
+    }
+
+    public void printQueue(){
+        System.out.print("Queue:    ");
+        if (size == 0) {
+            System.out.println("Empty");
+            return;
+        }
+        int index = head;
+        for (int i = 0; i < size; i++) {
+            System.out.print("Cell: " + this.buf[index] + " ");
+            index = (index+1)%buf.length;
+        }
+        System.out.println();
+    }
+
     public boolean isEmpty(){
         return this.size == 0;
+    }
+
+    public Object[] getBuf() {
+        return buf;
+    }
+
+    public void setBuf(Object[] buf) {
+        this.buf = buf;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getHead() {
+        return head;
+    }
+
+    public void setHead(int head) {
+        this.head = head;
+    }
+
+    public int getTail() {
+        return tail;
+    }
+
+    public void setTail(int tail) {
+        this.tail = tail;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }

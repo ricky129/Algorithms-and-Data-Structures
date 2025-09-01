@@ -28,7 +28,7 @@ public class BinarySearchTree extends Tree {
     }
 
     // O(h)
-    public Node insert(int key) {
+    public Node bstInsert(int key) {
         Node newNode = new Node(key);
         Node prev = null;
         Node curr = root;
@@ -82,7 +82,7 @@ public class BinarySearchTree extends Tree {
     }
 
     // O(h)
-    public Node delete(int k) {
+    public Node bstDelete(int k) {
         Node v = search(k);
         if (v != null && v.left != null && v.right != null) {
             Node u = predecessor(v);
@@ -113,11 +113,11 @@ public class BinarySearchTree extends Tree {
     }
 
     @Override
-    public void fillTree(Node T) {
-        root = T;
-        int[] values = {4, 2, 6, 1, 3, 5};
+    public void fillTree() {
+        this.root = new Node(4);
+        int[] values = {2, 6, 1, 3, 5};
         for (int value : values)
-            insert(value);
+            bstInsert(value);
     }
 
     public void printTree() {

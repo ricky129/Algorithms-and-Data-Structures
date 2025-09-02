@@ -46,8 +46,8 @@ public class ComplementList {
         Node current = head;
         System.out.print("List " + name + ": ");
         while (current != null) {
-            System.out.print(current.data + " ");
-            current = current.next;
+            System.out.print(current.getData() + " ");
+            current = current.getNext();
         }
         System.out.println();
     }
@@ -64,25 +64,25 @@ public class ComplementList {
             L1.tail = null;
         else {
             Node current = result;
-            while (current.next != null)
-                current = current.next;
+            while (current.getNext() != null)
+                current = current.getNext();
             L1.tail = current;
         }
 
-        System.out.println("Tail of L1 after complement: " + (L1.tail != null ? L1.tail.data : "null"));
+        System.out.println("Tail of L1 after complement: " + (L1.tail != null ? L1.tail.getData() : "null"));
     }
 
     // Θ(L1.length + L2.length)
     private static Node sortedComplement (Node L1, Node L2) {
         if (L1 == null || L2 == null)
             return null;
-        else if (L1.data > L2.data)
-            return sortedComplement(L1, L2.next);
-        else if (L1.data < L2.data) {
-            L1.next = sortedComplement(L1.next, L2);
+        else if (L1.getData() > L2.getData())
+            return sortedComplement(L1, L2.getNext());
+        else if (L1.getData() < L2.getData()) {
+            L1.setNext(sortedComplement(L1.getNext(), L2));
             return L1;
         } else
-            return sortedComplement(L1.next, L2);
+            return sortedComplement(L1.getNext(), L2);
     }
 
 }

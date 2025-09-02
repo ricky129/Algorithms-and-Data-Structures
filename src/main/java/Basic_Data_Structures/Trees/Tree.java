@@ -12,24 +12,24 @@ public class Tree {
 
     public void visit(Node T) {
         if (T != null)
-            System.out.println("Visited node: " + T.data);
+            System.out.println("Visited node: " + T.getData());
     }
 
     // Θ(n)
     public void preorder(Node T) {
         if (T != null) {
             visit(T);
-            preorder(T.left);
-            preorder(T.right);
+            preorder(T.getLeft());
+            preorder(T.getRight());
         }
     }
 
     // Θ(n)
     public void inorder(Node T) {
         if (T != null) {
-            inorder(T.left);
+            inorder(T.getLeft());
             visit(T);
-            inorder(T.right);
+            inorder(T.getRight());
         }
     }
 
@@ -43,10 +43,10 @@ public class Tree {
             while (Q.getSize() != 0) {
                 Node x = Q.dequeue();
                 visit(x);
-                if (x.left != null)
-                    Q.enqueue(x.left);
-                else if (x.right != null)
-                    Q.enqueue(x.right);
+                if (x.getLeft() != null)
+                    Q.enqueue(x.getLeft());
+                if (x.getRight() != null)
+                    Q.enqueue(x.getRight());
         }
     }
 
@@ -55,25 +55,25 @@ public class Tree {
         if (T == null)
             return 0;
         else
-            return 1 + countnodes(T.left) + countnodes(T.right);
+            return 1 + countnodes(T.getLeft()) + countnodes(T.getRight());
     }
 
     public void updateheight(Node T) {
         if (T == null)
             return;
 
-        int leftHeight = (T.left == null) ? -1 : T.left.height;
-        int rightHeight = (T.right == null) ? -1 : T.right.height;
-        T.height = 1 + Math.max(leftHeight, rightHeight);
+        int leftHeight = (T.getLeft() == null) ? -1 : T.getLeft().getHeight();
+        int rightHeight = (T.getRight() == null) ? -1 : T.getRight().getHeight();
+        T.setHeight(1 + Math.max(leftHeight, rightHeight));
     }
 
     public void fillTree() {
-        this.root = new Node(1);
-        root.left = new Node(2);
-        root.right = new Node(3);
-        root.left.left = new Node(4);
-        root.left.right = new Node(5);
-        root.right.right = new Node(6);
+        this.root = new Node(1, 1);
+        root.setLeft(new Node(2, 2));
+        root.setRight(new Node(3, 3));
+        root.getLeft().setLeft(new Node(4, 4));
+        root.getLeft().setRight(new Node(5, 5));
+        root.getRight().setRight(new Node(6, 6));
         preorder(root);
     }
 
@@ -92,29 +92,33 @@ public class Tree {
         while(Q.getSize() != 0) {
             Node current = Q.dequeue();
 
-            if (current.left == null) {
-                current.left = newNode;
-                newNode.parent = current;
+            if (current.getLeft() == null) {
+                current.setLeft(newNode);
+                newNode.setParent(current);
                 updateheight(newNode);
                 updateheight(current);
                 return;
             } else
-                Q.enqueue(current.left);
+                Q.enqueue(current.getLeft());
 
-            if (current.right == null) {
-                current.right = newNode;
-                newNode.parent = current;
+            if (current.getRight() == null) {
+                current.setRight(newNode);
+                newNode.setParent(current);
                 updateheight(newNode);
                 updateheight(current);
                 return;
             } else
-                Q.enqueue(current.right);
+                Q.enqueue(current.getRight());
         }
     }
 
     public int height(Node node) {
         if (node == null)
             return -1;
-        return 1 + Math.max(height(node.left), height(node.right));
+        return 1 + Math.max(height(node.getLeft()), height(node.getRight()));
+    }
+
+    public void printTree() {
+        inorder(root);
     }
 }

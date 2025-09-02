@@ -28,8 +28,8 @@ public class BinarySearchTree extends Tree {
     }
 
     // O(h)
-    public Node bstInsert(int key) {
-        Node newNode = new Node(key);
+    public Node bstInsert(int key, int data) {
+        Node newNode = new Node(key, data);
         Node prev = null;
         Node curr = root;
 
@@ -114,13 +114,9 @@ public class BinarySearchTree extends Tree {
 
     @Override
     public void fillTree() {
-        this.root = new Node(4);
+        this.root = new Node(4, 4);
         int[] values = {2, 6, 1, 3, 5};
         for (int value : values)
-            bstInsert(value);
-    }
-
-    public void printTree() {
-        inorder(root);
+            bstInsert(value, value);
     }
 }

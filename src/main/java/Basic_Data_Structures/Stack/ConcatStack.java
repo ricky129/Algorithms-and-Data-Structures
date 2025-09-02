@@ -10,8 +10,8 @@ public class ConcatStack {
     }
 
     // O(1)
-    public void push(int d){
-        this.stack.insert(d);
+    public void push(int d, int k){
+        this.stack.llinsert(k, d);
     }
 
     // O(n)
@@ -19,7 +19,7 @@ public class ConcatStack {
         int d;
         if (this.stack != null) {
             d = this.stack.head.data;
-            this.stack.delete(d);
+            this.stack.lldelete(d);
             return d;
         }
         return null;

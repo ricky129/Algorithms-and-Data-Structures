@@ -39,8 +39,7 @@ public class myQueue<T> {
     }
 
     public void fillQueue(T[] elements){
-        for (int i = 0; i < elements.length; i++)
-            enqueue(elements[i]);
+        for (T element : elements) enqueue(element);
     }
 
     public void printQueue(){

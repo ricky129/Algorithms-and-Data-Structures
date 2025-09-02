@@ -23,13 +23,13 @@ public class DynamicStack {
         } else {
             e = this.stack[this.top];
             this.top--;
-            if (this.top <= Math.floor(this.stack.length / 4)) {
+            if (this.top <= Math.floor((double) this.stack.length / 4)) {
                 n = this.stack.length;
                 T = new int[n / 2];
                 for (int i = 1; i < n / 4; i++) {
                     T[i] = this.stack[i];
                     this.stack = T;
-                    this.size = (int) (Math.ceil(n / 2));
+                    this.size = (int) (Math.ceil((double) n / 2));
                 }
             }
             return e;

@@ -1,33 +1,33 @@
 package Basic_Data_Structures.Stack;
 
 import Basic_Data_Structures.Lists.LinkedList;
+import Basic_Data_Structures.Lists.Node;
 
-public class ConcatStack {
-    private LinkedList stack;
+public class ConcatStack<T> {
+    private LinkedList<T> stack;
 
     public ConcatStack(){
-        this.stack = new LinkedList();
+        this.stack = new LinkedList<>();
     }
 
     // O(1)
-    public void push(int d, int k){
+    public void push(T d, int k){
         this.stack.llinsert(k, d);
     }
 
     // O(n)
-    public Integer pop(){
-        int d;
+    public Node<T> pop(){
         if (this.stack != null) {
-            d = this.stack.head.data;
-            this.stack.lldelete(d);
-            return d;
+            Node<T> popped = this.stack.head;
+            this.stack.lldelete(popped.getData());
+            return popped;
         }
         return null;
     }
 
-    public Integer peek(){
+    public T peek(){
         if (this.stack.head != null)
-            return this.stack.head.data;
+            return this.stack.head.getData();
         return null;
     }
 

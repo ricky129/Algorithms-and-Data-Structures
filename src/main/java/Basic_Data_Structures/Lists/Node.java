@@ -1,20 +1,26 @@
 package Basic_Data_Structures.Lists;
 
-public class Node {
-    private int key, data, height, balanceFactor;
-    private Node next, left, right , parent;
+public class Node<T> {
+    private int key, index, height, balanceFactor;
+    private T data;
+    private Node<T> next, left, right, parent;
     private boolean tombstone;
 
-    public Node(int data, int key) {
+    public Node(int key, T data) {
+        this(data, key, 0, false);
+    }
+
+    public Node(T data, int key, int index, boolean tombstone) {
         this.data = data;
         this.key = key;
+        this.index = index;
+        this.tombstone = tombstone;
         this.next = null;
         this.left = null;
         this.right = null;
         this.parent = null;
         this.height = 0;
         this.balanceFactor = -1;
-        this.tombstone = false;
     }
 
     public void setBalanceFactor() {
@@ -37,43 +43,43 @@ public class Node {
         this.key = key;
     }
 
-    public int getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(T data) {
         this.data = data;
     }
 
-    public Node getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 
-    public Node getLeft() {
+    public Node<T> getLeft() {
         return left;
     }
 
-    public void setLeft(Node left) {
+    public void setLeft(Node<T> left) {
         this.left = left;
     }
 
-    public Node getRight() {
+    public Node<T> getRight() {
         return right;
     }
 
-    public void setRight(Node right) {
+    public void setRight(Node<T> right) {
         this.right = right;
     }
 
-    public Node getParent() {
+    public Node<T> getParent() {
         return parent;
     }
 
-    public void setParent(Node parent) {
+    public void setParent(Node<T> parent) {
         this.parent = parent;
     }
 
@@ -92,5 +98,12 @@ public class Node {
     public void setTombstone(boolean tombstone) {
         this.tombstone = tombstone;
     }
-}
 
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+}

@@ -2,90 +2,94 @@ package Basic_Data_Structures.Trees;
 
 import Basic_Data_Structures.Lists.Node;
 
-public class BinarySearchTree extends Tree {
+public class BinarySearchTree<T> extends Tree {
 
     // O(h)
-    public Node search(int k) {
-        Node tmp = root;
+    public Node<T> search(int k) {
+        Node<T> tmp = this.root;
         while (tmp != null) {
-            if (k == tmp.data)
+            if (k == tmp.getKey())
                 return tmp;
-            else if (k < tmp.data)
-                tmp = tmp.left;
+            else if (k < tmp.getKey())
+                tmp = tmp.getLeft();
             else
-                tmp = tmp.right;
+                tmp = tmp.getRight();
         }
         return null;
     }
 
     // O(h)
-    public void swap(Node v, Node u) {
+    public void swap(Node<T> v, Node<T> u) {
         if (v != null && u != null) {
-            int temp = v.data;
-            v.data = u.data;
-            u.data = temp;
+            T temp = v.getData();
+            v.setData(u.getData());
+            u.setData(temp);
         }
     }
 
     // O(h)
-    public Node bstInsert(int key, int data) {
-        Node newNode = new Node(key, data);
-        Node prev = null;
-        Node curr = root;
+    public Node<T> bstInsert(int key, T data) {
+        Node<T> newNode = new Node<>(key, data);
+        Node<T> prev = null;
+        Node<T> curr = this.root;
 
         while (curr != null) {
             prev = curr;
-            if (key < curr.data)
-                curr = curr.left;
+            if (key == curr.getKey()) {
+                System.out.println("Key: " + key + " already exists. Insertion failed.");
+                return curr;
+            }
+            if (key < curr.getKey())
+                curr = curr.getLeft();
             else
-                curr = curr.right;
+                curr = curr.getRight();
         }
 
         if (prev == null)
-            root = newNode;
+            this.root = newNode;
         else {
-            newNode.parent = prev;
-            if (key < prev.data)
-                prev.left = newNode;
+            newNode.setParent(prev);
+            if (key < prev.getKey())
+                prev.setLeft(newNode);
             else
-                prev.right = newNode;
+                prev.setRight(newNode);
         }
         return newNode;
     }
 
     // O(h)
-    public Node max(Node T) {
-        while (T != null && T.right != null)
-            T = T.right;
+    public Node<T> max(Node<T> T) {
+        while (T != null && T.getRight() != null)
+            T = T.getRight();
         return T;
     }
 
     // O(h)
-    public Node min(Node T) {
-        while (T != null && T.left != null)
-            T = T.left;
+    public Node<T> min(Node<T> T) {
+        while (T != null && T.getLeft() != null)
+            T = T.getLeft();
         return T;
     }
 
     // O(h)
-    public Node predecessor(Node T) {
+    public Node<T> predecessor(Node<T> T) {
         if (T == null)
             return null;
-        if (T.left != null)
-            return max(T.left);
-        Node P = T.parent;
-        while (P != null && T == P.left) {
+        if (T.getLeft() != null)
+            return max(T.getLeft());
+        Node<T> P = T.getParent();
+        while (P != null && T == P.getLeft()) {
             T = P;
-            P = P.parent;
+            P = P.getParent();
         }
         return P;
     }
 
     // O(h)
-    public Node bstDelete(int k) {
-        Node v = search(k);
-        if (v != null && v.left != null && v.right != null) {
-            Node u = predecessor(v);
+    public Node<T> bstDelete(int k) {
+        Node<T> v = search(k);
+        if (v != null && v.getLeft() != null && v.getRight() != null) {
+            Node<T> u = predecessor(v);
             swap(v, u);
             v = u;
         }
@@ -94,29 +98,28 @@ public class BinarySearchTree extends Tree {
     }
 
     // O(1)
-    public void disconnect(Node v) {
+    public void disconnect(Node<T> v) {
         if (v == null)
             return;
-        Node p = v.parent, c;
-        if (v.right == null)
-            c = v.left;
+        Node<T> p = v.getParent(), c;
+        if (v.getRight() == null)
+            c = v.getLeft();
         else
-            c = v.right;
+            c = v.getRight();
         if (p == null)
             root = c;
-        else if (p.left == v)
-            p.left = c;
+        else if (p.getLeft() == v)
+            p.setLeft(c);
         else
-            p.right = c;
+            p.setRight(c);
         if (c != null)
-            c.parent = p;
+            c.setParent(p);
     }
 
-    @Override
     public void fillTree() {
-        this.root = new Node(4, 4);
-        int[] values = {2, 6, 1, 3, 5};
-        for (int value : values)
-            bstInsert(value, value);
+        this.root = new Node<T>(4, (T) Integer.valueOf(4));
+        Integer[] values = {2, 6, 1, 3, 5};
+        for (Integer value : values)
+            bstInsert(value, (T) value);
     }
 }

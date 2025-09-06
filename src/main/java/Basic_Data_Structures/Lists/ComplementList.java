@@ -1,12 +1,11 @@
 package Basic_Data_Structures.Lists;
 
-public class ComplementList {
+public class ComplementList<T extends Comparable<T>> {
     int length;
 
     public static void printArray (int[] A, String name) {
         System.out.print("Array " + name + ": ");
-        for (int i = 0; i < A.length; i++)
-            System.out.print(A[i] + " ");
+        for (int j : A) System.out.print(j + " ");
         System.out.println();
     }
 
@@ -42,8 +41,8 @@ public class ComplementList {
         return cleanRecursive(arr, ret, i, j + 1);
     }
 
-    private static void printList (Node head, String name) {
-        Node current = head;
+    private void printList(Node<T> head, String name) {
+        Node<T> current = head;
         System.out.print("List " + name + ": ");
         while (current != null) {
             System.out.print(current.getData() + " ");
@@ -52,18 +51,18 @@ public class ComplementList {
         System.out.println();
     }
 
-    public static void sortedComplementInit (LinkedList L1, LinkedList L2) {
+    public void sortedComplementInit (LinkedList<T> L1, LinkedList<T> L2) {
         printList(L1.head, "L1");
         printList(L2.head, "L2");
 
-        Node result = sortedComplement(L1.head, L2.head);
+        Node<T> result = sortedComplement(L1.head, L2.head);
         printList(result, "result");
 
         L1.head = result;
         if (result == null)
             L1.tail = null;
         else {
-            Node current = result;
+            Node<T> current = result;
             while (current.getNext() != null)
                 current = current.getNext();
             L1.tail = current;
@@ -73,12 +72,15 @@ public class ComplementList {
     }
 
     // Θ(L1.length + L2.length)
-    private static Node sortedComplement (Node L1, Node L2) {
+    private Node<T> sortedComplement(Node<T> L1, Node<T> L2) {
         if (L1 == null || L2 == null)
             return null;
-        else if (L1.getData() > L2.getData())
+
+        int cmp = L1.getData().compareTo(L2.getData());
+
+        if (cmp > 0)
             return sortedComplement(L1, L2.getNext());
-        else if (L1.getData() < L2.getData()) {
+        else if (cmp < 0) {
             L1.setNext(sortedComplement(L1.getNext(), L2));
             return L1;
         } else

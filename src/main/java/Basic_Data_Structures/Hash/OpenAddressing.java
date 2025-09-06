@@ -3,11 +3,11 @@ package Basic_Data_Structures.Hash;
 import Basic_Data_Structures.Lists.Node;
 import org.apache.commons.math3.primes.Primes;
 
-public class OpenAddressing {
-    private Node[] table;
+public class OpenAddressing<T> {
+    private Node<T>[] table;
     private int size;
 
-    public OpenAddressing(Node[] table, int size) {
+    public OpenAddressing(int size) {
         this.size = size;
         this.table = new Node[size];
     }
@@ -47,26 +47,26 @@ public class OpenAddressing {
     }
 
     // O(size)
-    public int search(int k) {
+    public T search(int k) {
         int i = 0, j = 0;
         while (table[j] != null || i != this.size) {
             j = hash(k, i);
             if (table[j] == null)
-                return -1;
+                return null;
             if (table[j].getKey() == k)
                 return table[j].getData();
             i++;
         }
-        return -1;
+        return null;
     }
 
     // O(size)
-    public void insert(int k, int d) {
+    public void insert(int k, T d) {
         int i = 0, j = 0;
         while (i != this.size) {
             j = hash(k, i);
             if (table[j] == null || table[j].isTombstone()) {
-                table[j] = new Node(k, d);
+                table[j] = new Node<T>(k, d);
                 return;
             }
             i++;

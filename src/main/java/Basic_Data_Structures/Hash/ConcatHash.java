@@ -3,15 +3,15 @@ package Basic_Data_Structures.Hash;
 import Basic_Data_Structures.Lists.LinkedList;
 import Basic_Data_Structures.Lists.Node;
 
-public class ConcatHash extends LinkedList {
-    private LinkedList[] table;
+public class ConcatHash<T> extends LinkedList<T> {
+    private LinkedList<T>[] table;
     private int size;
 
     public ConcatHash(int size) {
         this.size = size;
         this.table = new LinkedList[size];
         for (int i = 0; i < size; i++)
-            table[i] = new LinkedList();
+            table[i] = new LinkedList<>();
     }
 
     // Θ(log k)
@@ -46,13 +46,13 @@ public class ConcatHash extends LinkedList {
     }
 
     // O(L), L = length of the longest collision's list
-    public int hashSearch(int k){
-        Node tmp = table[hash(k)].llsearch(k);
+    public T hashSearch(int k){
+        Node<T> tmp = table[hash(k)].llsearch(k);
 
         if (tmp != null)
             return tmp.getData();
         else
-            return -1;
+            return null;
     }
 
     // O(L), L = length of the longest collision's list

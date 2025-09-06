@@ -2,11 +2,11 @@ package Basic_Data_Structures.Trees;
 
 import Basic_Data_Structures.Lists.Node;
 
-public class AVLTree extends BinarySearchTree {
+public class AVLTree<T> extends BinarySearchTree<T> {
 
-    public void rightRotate(Node u) {
+    public void rightRotate(Node<T> u) {
         if (u != null && u.getLeft() != null) {
-            Node v = u.getLeft();
+            Node<T> v = u.getLeft();
             u.setLeft(v.getRight());
             v.setRight(u);
             if (u.getLeft() != null)
@@ -26,9 +26,9 @@ public class AVLTree extends BinarySearchTree {
         }
     }
 
-    public void leftRotate(Node u) {
+    public void leftRotate(Node<T> u) {
         if (u != null && u.getRight() != null) {
-            Node v = u.getRight();
+            Node<T> v = u.getRight();
             u.setRight(v.getLeft());
             v.setLeft(u);
             if (u.getRight() != null)
@@ -49,7 +49,7 @@ public class AVLTree extends BinarySearchTree {
     }
 
     // O(1)
-    public void balance(Node u) {
+    public void balance(Node<T> u) {
         int b;
 
         if (u == null)
@@ -70,9 +70,9 @@ public class AVLTree extends BinarySearchTree {
     }
 
     // Θ(log n)
-    public Node insert(int key, int data) {
-        Node v = bstInsert(key, data);
-        Node p = v.getParent();
+    public void insert(int key, T data) {
+        Node<T> v = bstInsert(key, data);
+        Node<T> p = v.getParent();
 
         while (p != null && Math.abs(p.getBalanceFactor()) != 2) {
             updateheight(p);
@@ -81,13 +81,12 @@ public class AVLTree extends BinarySearchTree {
             if (p != null)
                 balance(p);
         }
-        return v;
     }
 
     // Θ(log n)
-    public Node delete(int d) {
-        Node v = bstDelete(d);
-        Node p = null;
+    public Node<T> delete(int d) {
+        Node<T> v = bstDelete(d);
+        Node<T> p = null;
 
         if (v != null)
             p = v.getParent();
@@ -103,20 +102,20 @@ public class AVLTree extends BinarySearchTree {
         return v;
     }
 
-    public void createAVLTree(Node initialRoot) {
+    public void createAVLTree(Node<T> initialRoot) {
         this.root = initialRoot;
         if (initialRoot != null) {
             updateheight(initialRoot);
             initialRoot.setBalanceFactor();
         }
-        int[] values = {4, 2, 6, 1, 3, 5};
-        for (int value : values)
-            insert(value, value);
+        Integer[] values = {4, 2, 6, 1, 3, 5};
+        for (Integer value : values)
+            insert(value, (T)value);
     }
 
     // Θ(log n)
-    public Node search(Node T) {
-        BinarySearchTree BST1 = new BinarySearchTree();
-        return BST1.search(T.getData());
+    public Node<T> search(Node<T> T) {
+        BinarySearchTree<T> BST1 = new BinarySearchTree();
+        return BST1.search(T.getKey());
     }
 }

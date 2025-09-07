@@ -5,6 +5,10 @@ import Basic_Data_Structures.Lists.Node;
 import Basic_Data_Structures.Stack.StaticStack;
 import Basic_Data_Structures.Trees.Tree;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -80,7 +84,7 @@ public class Algorithms {
     }
 
     // O(n)
-    public int GreedyChange(int R, Integer[] T) {
+    public int greedyChange(int R, Integer[] T) {
         Arrays.sort(T, Collections.reverseOrder());
         int nm = 0;
         int i = 0;
@@ -98,35 +102,58 @@ public class Algorithms {
             return nm;
     }
 
-    // O(n log n)
-    public Tree<Character> Huffman(double[] f, char[] c) {
-        if (f.length != c.length || f.length == 0) {
-            return null;
+    public void huffmanHelper(String filePath, ArrayList<Character> f, ArrayList<Integer> c) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            int charCode;
+            while ((charCode = reader.read()) != -1) {
+                char currentChar = (char) charCode;
+                int index = f.indexOf(currentChar);
+                if (index == -1) {
+                    f.add(currentChar);
+                    c.add(1);
+                } else
+                    c.set(index, c.get(index) + 1);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
 
-        int n = f.length;
-        PriorityQueue<Character> Q = new PriorityQueue<>(n, 2);
+    // O(n log n)
+    public Tree<Node<Integer>> huffman() {
+        ArrayList<Character> f = new ArrayList<>();
+        ArrayList<Integer> c = new ArrayList<>();
+        huffmanHelper("input.txt", f, c);
+
+        if (f.size() != c.size() || f.isEmpty())
+            throw new IllegalArgumentException("Invalid input: frequency and character lists must be non-empty and of equal size");
+
+        int n = f.size();
+        PriorityQueue<Integer> Q = new PriorityQueue<>(n + 1, 2);
 
         for (int i = 0; i < n; i++) {
-            Q.insert((int) f[i], c[i]);
+            Node<Integer> z = new Node<>((int) f.get(i), c.get(i), i + 1, false);
+            Q.insert(z);
         }
 
         for (int i = 0; i < n - 1; i++) {
-            Node<Character> z1 = Q.findMin();
+            Node<Integer> z1 = Q.findMin();
             Q.deleteMin();
-            Node<Character> z2 = Q.findMin();
+            Node<Integer> z2 = Q.findMin();
             Q.deleteMin();
 
-            Node<Character> z = new Node<>(z1.getKey() + z2.getKey(), null);
+            Node<Integer> z = new Node<>(null, z1.getKey() + z2.getKey(), i + n + 1, false);
             z.setLeft(z1);
             z.setRight(z2);
             z1.setParent(z);
             z2.setParent(z);
 
-            Q.insert(z.getKey(), z.getData());
+            Q.insert(z);
         }
 
-        Node<Character> root = Q.findMin();
-        return new Tree<>(root);
+        Node<Integer> root = Q.findMin();
+        if (root == null)
+            return new Tree<>();
+        return new Tree(root);
     }
 }

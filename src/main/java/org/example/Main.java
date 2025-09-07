@@ -1,7 +1,8 @@
 package org.example;
 
 import Algorithms.Algorithms;
-import Basic_Data_Structures.Stack.StaticStack;
+import Basic_Data_Structures.Lists.Node;
+import Basic_Data_Structures.Trees.Tree;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -146,85 +147,105 @@ public class Main {
 //        System.out.println("Sorted array after remove:");
 //        System.out.println(Arrays.toString(A));
 
-        System.out.println("\n----- ALGORITHMS -----");
-        StaticStack source = new StaticStack(10);
-        StaticStack auxiliary = new StaticStack(10);
-        StaticStack destination = new StaticStack(10);
+//        System.out.println("\n----- HANOI -----");
+//        StaticStack source = new StaticStack(10);
+//        StaticStack auxiliary = new StaticStack(10);
+//        StaticStack destination = new StaticStack(10);
+//
+//        Integer[] disks = {3, 2, 1};
+//        source.fillStack(disks);
+//
+//        // Print initial state
+//        System.out.println("Initial State:");
+//        System.out.print("Source Peg: ");
+//        source.printStack();
+//        System.out.print("Auxiliary Peg: ");
+//        auxiliary.printStack();
+//        System.out.print("Destination Peg: ");
+//        destination.printStack();
+//        System.out.println();
+//
+//        // Create Hanoi object and solve
+//        Algorithms hanoi = new Algorithms();
+//        hanoi.Hanoi(source, auxiliary, destination, disks.length);
+//
+//        // Print final state
+//        System.out.println("Final State:");
+//        System.out.print("Source Peg: ");
+//        source.printStack();
+//        System.out.print("Auxiliary Peg: ");
+//        auxiliary.printStack();
+//        System.out.print("Destination Peg: ");
+//        destination.printStack();
+//
+//        System.out.println("\n----- MAX SUB-VECTOR -----");
+//        System.out.println("Max sub-vector finder 1st method O(n^3):");
+//        Algorithms subvector = new Algorithms();
+//        double[] v = new double[]{1, 2.8, 5.3, 7.09, 4, 78, 9, 4.1};
+//        System.out.println(subvector.sumMax1(v));
+//        System.out.println("Max-subvector finder 2nd method O(n^3):");
+//        System.out.println(subvector.sumMax2(v));
+//        System.out.println("Max-subvector finder 3rd method O(n log n):");
+//        System.out.println(subvector.sumMaxDI(v, 0, v.length - 1) + "\n");
 
-        Integer[] disks = {3, 2, 1};
-        source.fillStack(disks);
+//        System.out.println("\n----- GREEDY CHANGE -----");
+//        Algorithms greedyChange = new Algorithms();
+//
+//        // Test Case 1: Change is possible with standard denominations
+//        int R1 = 18;
+//        Integer[] T1 = {1, 5, 10};
+//        System.out.println("Test Case 1: Amount = " + R1 + ", Denominations = " + java.util.Arrays.toString(T1));
+//        int result1 = greedyChange.greedyChange(R1, T1);
+//        System.out.println("Minimum number of coins: " + result1);
+//        System.out.println();
+//
+//        // Test Case 2: Change is possible with different denominations
+//        int R2 = 30;
+//        Integer[] T2 = {1, 2, 5, 10, 25};
+//        System.out.println("Test Case 2: Amount = " + R2 + ", Denominations = " + java.util.Arrays.toString(T2));
+//        int result2 = greedyChange.greedyChange(R2, T2);
+//        System.out.println("Minimum number of coins: " + result2);
+//        System.out.println();
+//
+//        // Test Case 3: Change is not possible
+//        int R3 = 7;
+//        Integer[] T3 = {2, 4};
+//        System.out.println("Test Case 3: Amount = " + R3 + ", Denominations = " + java.util.Arrays.toString(T3));
+//        int result3 = greedyChange.greedyChange(R3, T3);
+//        System.out.println("Minimum number of coins: " + result3);
+//        System.out.println();
+//
+//        // Test Case 4: Zero amount
+//        int R4 = 0;
+//        Integer[] T4 = {1, 5, 10};
+//        System.out.println("Test Case 4: Amount = " + R4 + ", Denominations = " + java.util.Arrays.toString(T4));
+//        int result4 = greedyChange.greedyChange(R4, T4);
+//        System.out.println("Minimum number of coins: " + result4);
+//        System.out.println();
+//
+//        // Test Case 5: Single denomination
+//        int R5 = 15;
+//        Integer[] T5 = {5};
+//        System.out.println("Test Case 5: Amount = " + R5 + ", Denominations = " + java.util.Arrays.toString(T5));
+//        int result5 = greedyChange.greedyChange(R5, T5);
+//        System.out.println("Minimum number of coins: " + result5);
 
-        // Print initial state
-        System.out.println("Initial State:");
-        System.out.print("Source Peg: ");
-        source.printStack();
-        System.out.print("Auxiliary Peg: ");
-        auxiliary.printStack();
-        System.out.print("Destination Peg: ");
-        destination.printStack();
-        System.out.println();
+        System.out.println("\n----- HUFFMAN -----");
+        Algorithms huffmanAlgorithm = new Algorithms();
+        try {
+            System.out.println("Building Huffman tree from input.txt...");
+            Tree<Node<Integer>> huffmanTree = huffmanAlgorithm.huffman();
 
-        // Create Hanoi object and solve
-        Algorithms hanoi = new Algorithms();
-        hanoi.Hanoi(source, auxiliary, destination, disks.length);
-
-        // Print final state
-        System.out.println("Final State:");
-        System.out.print("Source Peg: ");
-        source.printStack();
-        System.out.print("Auxiliary Peg: ");
-        auxiliary.printStack();
-        System.out.print("Destination Peg: ");
-        destination.printStack();
-
-        System.out.println("Max-subvector finder 1st method O(n^3):");
-        Algorithms subvector = new Algorithms();
-        double[] v = new double[]{1, 2.8, 5.3, 7.09, 4, 78, 9, 4.1};
-        System.out.println(subvector.sumMax1(v));
-        System.out.println("Max-subvector finder 2nd method O(n^3):");
-        System.out.println(subvector.sumMax2(v));
-        System.out.println("Max-subvector finder 3rd method O(n log n):");
-        System.out.println(subvector.sumMaxDI(v, 0, v.length-1) + "\n");
-
-        Algorithms greedyChange = new Algorithms();
-
-        // Test Case 1: Change is possible with standard denominations
-        int R1 = 18;
-        Integer[] T1 = {1, 5, 10};
-        System.out.println("Test Case 1: Amount = " + R1 + ", Denominations = " + java.util.Arrays.toString(T1));
-        int result1 = greedyChange.GreedyChange(R1, T1);
-        System.out.println("Minimum number of coins: " + result1);
-        System.out.println();
-
-        // Test Case 2: Change is possible with different denominations
-        int R2 = 30;
-        Integer[] T2 = {1, 2, 5, 10, 25};
-        System.out.println("Test Case 2: Amount = " + R2 + ", Denominations = " + java.util.Arrays.toString(T2));
-        int result2 = greedyChange.GreedyChange(R2, T2);
-        System.out.println("Minimum number of coins: " + result2);
-        System.out.println();
-
-        // Test Case 3: Change is not possible
-        int R3 = 7;
-        Integer[] T3 = {2, 4};
-        System.out.println("Test Case 3: Amount = " + R3 + ", Denominations = " + java.util.Arrays.toString(T3));
-        int result3 = greedyChange.GreedyChange(R3, T3);
-        System.out.println("Minimum number of coins: " + result3);
-        System.out.println();
-
-        // Test Case 4: Zero amount
-        int R4 = 0;
-        Integer[] T4 = {1, 5, 10};
-        System.out.println("Test Case 4: Amount = " + R4 + ", Denominations = " + java.util.Arrays.toString(T4));
-        int result4 = greedyChange.GreedyChange(R4, T4);
-        System.out.println("Minimum number of coins: " + result4);
-        System.out.println();
-
-        // Test Case 5: Single denomination
-        int R5 = 15;
-        Integer[] T5 = {5};
-        System.out.println("Test Case 5: Amount = " + R5 + ", Denominations = " + java.util.Arrays.toString(T5));
-        int result5 = greedyChange.GreedyChange(R5, T5);
-        System.out.println("Minimum number of coins: " + result5);
+            // 3. Print the resulting tree to the console
+            System.out.println("\n--- Generated Huffman Tree Structure ---");
+            if (huffmanTree != null && huffmanTree.getRoot() != null)
+                huffmanTree.printASCIITree();
+             else
+                System.out.println("The generated tree is empty or null.");
+            System.out.println("------------------------------------");
+        } catch (Exception e) {
+            System.err.println("An error occurred during Huffman tree generation:");
+            e.printStackTrace();
+        }
     }
 }

@@ -4,23 +4,28 @@ import Basic_Data_Structures.Lists.Node;
 import Basic_Data_Structures.Queue.myQueue;
 
 public class Tree<T> {
-    Node<T>root;
+    Node<T> root;
 
     public Tree() {
         this.root = null;
     }
 
-    public Tree(Node<T>root){
+    public Tree(Node<T> root) {
         this.root = root;
     }
 
-    public void visit(Node<T>T) {
+    public void visit(Node<T> T) {
         if (T != null)
-            System.out.println("Visited node: " + T.getData());
+            System.out.println("Key: " + T.getKey() + ", data: " + T.getData());
+    }
+
+    public void visitASCII(Node<T> T){
+        if (T != null && T.getData() != null)
+            System.out.println("Key: " + T.getKey() + ", data: " + (char) (int) T.getData());
     }
 
     // Θ(n)
-    public void preorder(Node<T>T) {
+    public void preorder(Node<T> T) {
         if (T != null) {
             visit(T);
             preorder(T.getLeft());
@@ -29,11 +34,19 @@ public class Tree<T> {
     }
 
     // Θ(n)
-    public void inorder(Node<T>T) {
+    public void inorder(Node<T> T) {
         if (T != null) {
             inorder(T.getLeft());
             visit(T);
             inorder(T.getRight());
+        }
+    }
+
+    public void inorderASCII(Node<T> T){
+        if (T != null){
+            inorderASCII(T.getLeft());
+            visitASCII(T);
+            inorderASCII(T.getRight());
         }
     }
 
@@ -44,13 +57,13 @@ public class Tree<T> {
 
         myQueue<Node<T>> Q = new myQueue<>(10);
         Q.enqueue(this.root);
-            while (Q.getSize() != 0) {
-                Node<T>x = Q.dequeue();
-                visit(x);
-                if (x.getLeft() != null)
-                    Q.enqueue(x.getLeft());
-                if (x.getRight() != null)
-                    Q.enqueue(x.getRight());
+        while (Q.getSize() != 0) {
+            Node<T> x = Q.dequeue();
+            visit(x);
+            if (x.getLeft() != null)
+                Q.enqueue(x.getLeft());
+            if (x.getRight() != null)
+                Q.enqueue(x.getRight());
         }
     }
 
@@ -62,7 +75,7 @@ public class Tree<T> {
             return 1 + countnodes(T.getLeft()) + countnodes(T.getRight());
     }
 
-    public void updateheight(Node<T>T) {
+    public void updateheight(Node<T> T) {
         if (T == null)
             return;
 
@@ -83,7 +96,7 @@ public class Tree<T> {
         System.out.println();
     }
 
-    public void insertAtFirstNullLeaf(Node<T>newNode) {
+    public void insertAtFirstNullLeaf(Node<T> newNode) {
         if (newNode == null)
             return;
 
@@ -95,8 +108,8 @@ public class Tree<T> {
         myQueue<Node<T>> Q = new myQueue<>(10);
         Q.enqueue(this.root);
 
-        while(Q.getSize() != 0) {
-            Node<T>current = Q.dequeue();
+        while (Q.getSize() != 0) {
+            Node<T> current = Q.dequeue();
 
             if (current.getLeft() == null) {
                 current.setLeft(newNode);
@@ -124,9 +137,25 @@ public class Tree<T> {
         return 1 + Math.max(height(node.getLeft()), height(node.getRight()));
     }
 
-    public void printTree() {
+    public void printTree(Node<T> root) {
         System.out.println();
         inorder(root);
         System.out.println();
+    }
+
+    public void printTree() {
+        System.out.println();
+        inorder(this.root);
+        System.out.println();
+    }
+
+    public void printASCIITree() {
+        System.out.println();
+        inorderASCII(this.root);
+        System.out.println();
+    }
+
+    public Node<T> getRoot() {
+        return root;
     }
 }

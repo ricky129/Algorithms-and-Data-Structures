@@ -7,8 +7,8 @@ public class Heap<T> {
     public int heapsize;
 
     @SuppressWarnings("unchecked")
-    public Heap(int heapsize) {
-        this.heapsize = heapsize;
-        this.S = (Node<T>[]) new Node[heapsize];
+    public Heap(int length) {
+        this.S = new Node[length];
+        this.heapsize = 0;
     }
 }

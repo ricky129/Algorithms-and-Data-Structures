@@ -3,8 +3,10 @@ package Basic_Data_Structures.Trees;
 import Basic_Data_Structures.Lists.Node;
 import Basic_Data_Structures.Queue.myQueue;
 
+import java.util.ArrayList;
+
 public class Tree<T> {
-    Node<T> root;
+    public Node<T> root;
 
     public Tree() {
         this.root = null;
@@ -19,35 +21,72 @@ public class Tree<T> {
             System.out.println("Key: " + T.getKey() + ", data: " + T.getData());
     }
 
-    public void visitASCII(Node<T> T){
+    public void visitASCII(Node<T> T) {
         if (T != null && T.getData() != null)
             System.out.println("Key: " + T.getKey() + ", data: " + (char) (int) T.getData());
     }
 
-    // Θ(n)
-    public void preorder(Node<T> T) {
-        if (T != null) {
-            visit(T);
-            preorder(T.getLeft());
-            preorder(T.getRight());
+    public void generateCodes(ArrayList<Character> f, Tree<Node> T) {
+        Node x = T.root;
+        while (x.getData() != null) {
+            if (x == null)
+                return;
+            visit(x); // Pre-order: visit node first
+            dfsVisit(x.getLeft());
+            dfsVisit(x.getRight());
         }
     }
 
     // Θ(n)
-    public void inorder(Node<T> T) {
+    public void preOrder(Node<T> T) {
         if (T != null) {
-            inorder(T.getLeft());
             visit(T);
-            inorder(T.getRight());
+            preOrder(T.getLeft());
+            preOrder(T.getRight());
         }
     }
 
-    public void inorderASCII(Node<T> T){
-        if (T != null){
+    // Θ(n)
+    public void inOrder(Node<T> T) {
+        if (T != null) {
+            inOrder(T.getLeft());
+            visit(T);
+            inOrder(T.getRight());
+        }
+    }
+
+    public void inorderASCII(Node<T> T) {
+        if (T != null) {
             inorderASCII(T.getLeft());
             visitASCII(T);
             inorderASCII(T.getRight());
         }
+    }
+
+    public void dfs() {
+        dfsVisit(root);
+    }
+
+    private void dfsVisit(Node<T> node) {
+        if (node == null)
+            return;
+        visit(node); // Pre-order: visit node first
+        dfsVisit(node.getLeft());
+        dfsVisit(node.getRight());
+    }
+
+    // Optional: DFS with ASCII output for Huffman tree
+    public void dfsASCII() {
+        dfsVisitASCII(root);
+    }
+
+    private void dfsVisitASCII(Node<T> node) {
+        if (node == null) {
+            return;
+        }
+        visitASCII(node); // Pre-order: visit node first
+        dfsVisitASCII(node.getLeft());
+        dfsVisitASCII(node.getRight());
     }
 
     // Θ(n)
@@ -92,7 +131,7 @@ public class Tree<T> {
         root.getLeft().setLeft(new Node(4, 4));
         root.getLeft().setRight(new Node(5, 5));
         root.getRight().setRight(new Node(6, 6));
-        preorder(root);
+        preOrder(root);
         System.out.println();
     }
 
@@ -139,13 +178,13 @@ public class Tree<T> {
 
     public void printTree(Node<T> root) {
         System.out.println();
-        inorder(root);
+        inOrder(root);
         System.out.println();
     }
 
     public void printTree() {
         System.out.println();
-        inorder(this.root);
+        inOrder(this.root);
         System.out.println();
     }
 

@@ -1,8 +1,6 @@
 package org.example;
 
-import Algorithms.Algorithms;
-import Basic_Data_Structures.Lists.Node;
-import Basic_Data_Structures.Trees.Tree;
+import Algorithms.Huffman;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -231,21 +229,20 @@ public class Main {
 //        System.out.println("Minimum number of coins: " + result5);
 
         System.out.println("\n----- HUFFMAN -----");
-        Algorithms huffmanAlgorithm = new Algorithms();
-        try {
-            System.out.println("Building Huffman tree from input.txt...");
-            Tree<Node<Integer>> huffmanTree = huffmanAlgorithm.huffman();
+        Huffman<Integer> huffman = new Huffman<Integer>();
 
-            // 3. Print the resulting tree to the console
-            System.out.println("\n--- Generated Huffman Tree Structure ---");
-            if (huffmanTree != null && huffmanTree.getRoot() != null)
-                huffmanTree.printASCIITree();
-             else
-                System.out.println("The generated tree is empty or null.");
-            System.out.println("------------------------------------");
-        } catch (Exception e) {
-            System.err.println("An error occurred during Huffman tree generation:");
-            e.printStackTrace();
-        }
+        String inputFile = "input.txt";
+        String compressedFile = "compressed.bin";
+        String codeTableFile = "codetable.txt";
+        String decompressedFile = "decompressed.txt";
+
+        System.out.println("Compressing file...");
+        huffman.compressFile(inputFile, compressedFile, codeTableFile);
+        System.out.println("File compressed to " + compressedFile);
+
+        System.out.println("Decompressing file...");
+        huffman.decompressFile(compressedFile, codeTableFile, decompressedFile);
+        System.out.println("File decompressed to " + decompressedFile);
+        huffman.readFile(decompressedFile);
     }
 }

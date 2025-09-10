@@ -2,6 +2,7 @@ package Basic_Data_Structures.Lists;
 
 public class Node<T> {
     private int key, index, height, balanceFactor;
+    String code;
     private T data;
     private Node<T> next, left, right, parent;
     private boolean tombstone;
@@ -21,6 +22,7 @@ public class Node<T> {
         this.parent = null;
         this.height = 0;
         this.balanceFactor = -1;
+        this.code = null;
     }
 
     public void setBalanceFactor() {
@@ -105,5 +107,13 @@ public class Node<T> {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
